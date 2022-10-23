@@ -1,3 +1,4 @@
+//Print the name of the course.
 function Header(props) {
   return (
     <>
@@ -6,6 +7,8 @@ function Header(props) {
     </>
   )
 }
+
+//Print the name of the course part an its number of execercices
 function Part(props) {
   return (
     <p>
@@ -13,44 +16,53 @@ function Part(props) {
     </p>
   )
 }
+
+//Print the list of the course's parts.
 function Content(props) {
   const objects = props.parts;
+
   return (
     <>
-      <Part name={objects[0].name} exercises={objects[0].exercises} />
-      <Part name={objects[1].name} exercises={objects[1].exercises} />
-      <Part name={objects[2].name} exercises={objects[2].exercises} />
+      {
+        objects.map(obj=> (
+          <Part name={obj.name} exercises={obj.exercises} />
+        ))
+      }
     </>
   )
 }
+
+//Print the total course's exercices.
 function Total(props) {
   let total = 0;
   props.parts.forEach(object => total += object.exercises);
-  
+
   return <p><i>Number of exercises {total}</i></p>
 }
 
+//Main function.
 function App() {
   const course = 'Half Stack application development'
-  const part1 = {
-    name: 'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name: 'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  }
-
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
 
   return (
     <div>
       <Header course={course} />
-      <Content parts={[part1, part2, part3]} />
-      <Total parts={[part1, part2, part3]} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </div>
   )
 }
